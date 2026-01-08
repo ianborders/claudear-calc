@@ -155,10 +155,10 @@ export default function Calculator() {
 
   const getDisplayFontSize = () => {
     const length = display.length
-    if (length > 12) return '1rem'
-    if (length > 9) return '1.5rem'
-    if (length > 6) return '2rem'
-    return '2.5rem'
+    if (length > 12) return '0.8rem'
+    if (length > 9) return '1.2rem'
+    if (length > 6) return '1.6rem'
+    return '2rem'
   }
 
   return (
