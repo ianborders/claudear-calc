@@ -1,0 +1,289 @@
+.calculator-cabinet {
+  position: relative;
+  padding: 30px;
+  background: linear-gradient(180deg, #2a1a4a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  border-radius: 20px;
+  border: 4px solid #ff00ff;
+  box-shadow:
+    0 0 20px rgba(255, 0, 255, 0.5),
+    0 0 40px rgba(255, 0, 255, 0.3),
+    0 0 60px rgba(255, 0, 255, 0.1),
+    inset 0 0 30px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.cabinet-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.cabinet-light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.cabinet-light.left {
+  background: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+}
+
+.cabinet-light.right {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  animation-delay: 0.75s;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: var(--neon-yellow);
+  text-shadow:
+    0 0 10px var(--neon-yellow),
+    0 0 20px var(--neon-orange),
+    0 0 30px var(--neon-orange);
+  letter-spacing: 2px;
+  animation: titleGlow 2s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px var(--neon-yellow),
+      0 0 20px var(--neon-orange),
+      0 0 30px var(--neon-orange);
+  }
+  50% {
+    text-shadow:
+      0 0 20px var(--neon-yellow),
+      0 0 40px var(--neon-orange),
+      0 0 60px var(--neon-orange);
+  }
+}
+
+.calculator {
+  background: #0a0a0a;
+  border-radius: 15px;
+  padding: 20px;
+  border: 3px solid #330066;
+}
+
+.display-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.display {
+  font-family: 'Press Start 2P', cursive;
+  background: var(--display-bg);
+  color: var(--display-text);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: right;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  word-break: break-all;
+  border: 3px solid #003300;
+  box-shadow:
+    inset 0 0 20px rgba(0, 50, 0, 0.8),
+    0 0 10px rgba(57, 255, 20, 0.3);
+  text-shadow: 0 0 10px var(--display-text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Phosphor glow effect */
+.display-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.9rem;
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.btn.digit {
+  background: linear-gradient(180deg, #3a3a5e 0%, #1a1a2e 100%);
+  color: #ffffff;
+  border: 2px solid #4a4a6e;
+  box-shadow:
+    0 4px 0 #0a0a1e,
+    0 0 10px rgba(100, 100, 150, 0.3);
+}
+
+.btn.digit:hover {
+  background: linear-gradient(180deg, #4a4a7e 0%, #2a2a4e 100%);
+  box-shadow:
+    0 4px 0 #0a0a1e,
+    0 0 20px rgba(100, 100, 200, 0.5);
+}
+
+.btn.digit:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #0a0a1e,
+    0 0 10px rgba(100, 100, 150, 0.3);
+}
+
+.btn.function {
+  background: linear-gradient(180deg, #5a3a5e 0%, #2a1a2e 100%);
+  color: var(--neon-pink);
+  border: 2px solid #6a4a6e;
+  box-shadow:
+    0 4px 0 #1a0a1e,
+    0 0 10px rgba(255, 0, 255, 0.2);
+  text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.btn.function:hover {
+  background: linear-gradient(180deg, #7a5a7e 0%, #4a3a4e 100%);
+  box-shadow:
+    0 4px 0 #1a0a1e,
+    0 0 20px rgba(255, 0, 255, 0.4);
+}
+
+.btn.function:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #1a0a1e,
+    0 0 10px rgba(255, 0, 255, 0.2);
+}
+
+.btn.operator {
+  background: linear-gradient(180deg, #0a5a5a 0%, #0a2a3a 100%);
+  color: var(--neon-cyan);
+  border: 2px solid #0a6a6a;
+  box-shadow:
+    0 4px 0 #0a1a2a,
+    0 0 10px rgba(0, 255, 255, 0.2);
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.btn.operator:hover {
+  background: linear-gradient(180deg, #0a7a7a 0%, #0a4a5a 100%);
+  box-shadow:
+    0 4px 0 #0a1a2a,
+    0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+.btn.operator:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #0a1a2a,
+    0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.btn.equals {
+  background: linear-gradient(180deg, #2a5a0a 0%, #1a3a0a 100%);
+  color: var(--neon-green);
+  border: 2px solid #3a6a1a;
+  box-shadow:
+    0 4px 0 #0a1a0a,
+    0 0 10px rgba(57, 255, 20, 0.3);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.btn.equals:hover {
+  background: linear-gradient(180deg, #3a7a1a 0%, #2a5a1a 100%);
+  box-shadow:
+    0 4px 0 #0a1a0a,
+    0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+.btn.equals:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #0a1a0a,
+    0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.btn.zero {
+  grid-column: span 2;
+}
+
+.cabinet-bottom {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.coin-slot {
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 2px solid #4a4a4a;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.5rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
+  animation: freePlay 1s ease-in-out infinite;
+}
+
+@keyframes freePlay {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .calculator-cabinet {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .title {
+    font-size: 0.7rem;
+  }
+
+  .btn {
+    padding: 15px;
+    font-size: 0.7rem;
+  }
+
+  .display {
+    padding: 15px;
+    min-height: 50px;
+  }
+}
