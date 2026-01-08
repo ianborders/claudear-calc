@@ -1,5 +1,15 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import './Calculator.css'
+import {
+  playButtonSound,
+  playOperatorSound,
+  playEqualsSound,
+  playClearSound,
+  startBackgroundMusic,
+  stopBackgroundMusic,
+  isBackgroundMusicPlaying,
+  setMuted
+} from '../utils/sounds'
 
 type Operator = '+' | '-' | '*' | '/' | null
 
@@ -8,8 +18,30 @@ export default function Calculator() {
   const [previousValue, setPreviousValue] = useState<number | null>(null)
   const [operator, setOperator] = useState<Operator>(null)
   const [waitingForOperand, setWaitingForOperand] = useState(false)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const [musicPlaying, setMusicPlaying] = useState(false)
+
+  // Sync sound state with mute status
+  useEffect(() => {
+    setMuted(!soundEnabled)
+  }, [soundEnabled])
+
+  const toggleSound = useCallback(() => {
+    setSoundEnabled(prev => !prev)
+  }, [])
+
+  const toggleMusic = useCallback(() => {
+    if (isBackgroundMusicPlaying()) {
+      stopBackgroundMusic()
+      setMusicPlaying(false)
+    } else {
+      startBackgroundMusic()
+      setMusicPlaying(true)
+    }
+  }, [])
 
   const inputDigit = useCallback((digit: string) => {
+    playButtonSound()
     if (waitingForOperand) {
       setDisplay(digit)
       setWaitingForOperand(false)
@@ -19,6 +51,7 @@ export default function Calculator() {
   }, [display, waitingForOperand])
 
   const inputDecimal = useCallback(() => {
+    playButtonSound()
     if (waitingForOperand) {
       setDisplay('0.')
       setWaitingForOperand(false)
@@ -30,6 +63,7 @@ export default function Calculator() {
   }, [display, waitingForOperand])
 
   const clear = useCallback(() => {
+    playClearSound()
     setDisplay('0')
     setPreviousValue(null)
     setOperator(null)
@@ -37,16 +71,19 @@ export default function Calculator() {
   }, [])
 
   const toggleSign = useCallback(() => {
+    playOperatorSound()
     const value = parseFloat(display)
     setDisplay(String(value * -1))
   }, [display])
 
   const inputPercent = useCallback(() => {
+    playOperatorSound()
     const value = parseFloat(display)
     setDisplay(String(value / 100))
   }, [display])
 
   const performOperation = useCallback((nextOperator: Operator) => {
+    playOperatorSound()
     const inputValue = parseFloat(display)
 
     if (previousValue === null) {
@@ -86,6 +123,7 @@ export default function Calculator() {
   const calculate = useCallback(() => {
     if (operator === null || previousValue === null) return
 
+    playEqualsSound()
     const inputValue = parseFloat(display)
     let result: number
 
@@ -167,6 +205,22 @@ export default function Calculator() {
       </div>
 
       <div className="cabinet-bottom">
+        <div className="sound-controls">
+          <button
+            className={`sound-btn ${soundEnabled ? 'active' : ''}`}
+            onClick={toggleSound}
+            title={soundEnabled ? 'Mute sounds' : 'Enable sounds'}
+          >
+            {soundEnabled ? 'SFX ON' : 'SFX OFF'}
+          </button>
+          <button
+            className={`sound-btn ${musicPlaying ? 'active' : ''}`}
+            onClick={toggleMusic}
+            title={musicPlaying ? 'Stop music' : 'Play music'}
+          >
+            {musicPlaying ? 'BGM ON' : 'BGM OFF'}
+          </button>
+        </div>
         <div className="coin-slot">
           <span>FREE PLAY</span>
         </div>

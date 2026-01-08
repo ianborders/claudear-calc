@@ -246,7 +246,39 @@
 .cabinet-bottom {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.sound-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.sound-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.45rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 2px solid #4a4a4a;
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: none;
+}
+
+.sound-btn:hover {
+  background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-color: #5a5a5a;
+}
+
+.sound-btn.active {
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .coin-slot {
@@ -285,5 +317,10 @@
   .display {
     padding: 15px;
     min-height: 50px;
+  }
+
+  .sound-btn {
+    font-size: 0.35rem;
+    padding: 6px 10px;
   }
 }
